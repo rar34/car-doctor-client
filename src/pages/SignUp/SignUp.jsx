@@ -1,10 +1,29 @@
 import { Link } from 'react-router-dom';
 import loginImg from '../../assets/images/login/login.svg'
+import { useContext } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
 
 
 const SignUp = () => {
+
+    const { createUser } = useContext(AuthContext);
+
     const handleSignUp = e => {
         e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const name = form.name.value;
+        const password = form.password.value;
+        console.log(name, email, password);
+        form.reset();
+
+        createUser(email, password)
+            .then(result => {
+                console.log(result.user)
+            })
+            .catch(error => {
+                console.log(error)
+            })
 
     }
     return (
